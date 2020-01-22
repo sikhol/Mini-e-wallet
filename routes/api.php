@@ -13,6 +13,24 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+// Route::post('v1/login', 'UserController@login');
+Route::group(['middleware'=> ['api']], function(){
+
+    Route::post('v1/login', 'UserController@login');
+
+
+    Route::group(['middleware'=> ['jwt.verify']], function(){
+        Route::post('v1/logout', 'UserController@logout');
+        Route::get('/peserta', 'MataKuliahController@peserta');
+        Route::post('/mata_kuliah/{id}', 'MataKuliahController@create');
+
+      // Route::post('/tutorial', 'TutorialController@create');
+      // Route::put('/tutorial/{id}', 'TutorialController@update');
+      // Route::delete('/tutorial/{id}', 'TutorialController@destroy');
+
+  });
+
 });
