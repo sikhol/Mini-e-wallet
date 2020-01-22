@@ -24,7 +24,7 @@ Route::group(['middleware'=> ['api']], function(){
 
     Route::group(['middleware'=> ['jwt.verify']], function(){
         Route::post('v1/logout', 'UserController@logout');
-        Route::get('/peserta', 'MataKuliahController@peserta');
+        Route::post('v1/topup', 'UserController@topupBalance');
         Route::post('/mata_kuliah/{id}', 'MataKuliahController@create');
 
       // Route::post('/tutorial', 'TutorialController@create');
